@@ -59,6 +59,7 @@ npm run preview
 3. Choose the repo and set:
    - **Build command**: `npm run build`
    - **Build output directory**: `dist`
+   - **Deploy command** (if required): `npx wrangler pages deploy dist --project-name=eyecare-parentguidebook`
    - **Root directory**: (leave default)
    - **Environment variables**: None needed. Set **Node.js version** to **18** or higher if available.
 4. After the first deploy, add custom domain **eyecare.parentguidebook.org**.
