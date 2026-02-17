@@ -64,6 +64,17 @@ npm run preview
    - **Environment variables**: None needed. Set **Node.js version** to **18** or higher if available.
 4. After the first deploy, add custom domain **eyecare.parentguidebook.org**.
 
+### Option C: Worker connected to Git (Build + Deploy/Version command)
+
+This repo includes **`wrangler.jsonc`** so the built `dist` folder is deployed as static assets. Use this if your project is a **Worker** with a separate deploy/version command.
+
+1. **Build command**: `npm run build`
+2. **Deploy command** (or **Version command**, whichever runs after the build): set to **one** of:
+   - `npx wrangler deploy` — uses `wrangler.jsonc` and uploads `./dist`
+   - `npx wrangler versions upload` — same; Wrangler reads the config and uploads `./dist`
+3. Ensure the project **API token** has **Account → Cloudflare Pages** (or **Workers**) **Edit** and **User → User Details → Read**.
+4. Redeploy. The Worker will serve the static site from the `dist` directory.
+
 ### Reference
 
 - **Build command**: `npm run build`
