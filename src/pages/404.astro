@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations } from '../i18n/utils';
+
+// Default to English for 404. Users can switch language from header.
+const lang = 'en' as const;
+const t = useTranslations(lang);
+---
+
+<BaseLayout lang={lang} title={t('404.title')} description={t('404.message')} canonicalPath="/404">
+  <div class="prose mx-auto">
+    <h1>{t('404.title')}</h1>
+    <p>{t('404.message')}</p>
+    <p><a href="/">{t('404.home')}</a></p>
+  </div>
+</BaseLayout>
+

@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import type { Lang } from '../../../i18n/ui';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import { getBaseSlugFromId } from '../../../utils/routes';
+
+export async function getStaticPaths() {
+  return [{ params: { lang: 'en' } }, { params: { lang: 'zh' } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const pages = await getCollection('pages');
+const entry =
+  pages.find((p) => getBaseSlugFromId(p.id) === 'about' && (lang === 'en' ? p.data.lang === 'en' : p.data.lang === 'zh-Hans')) ??
+  pages[0];
+---
+
+<PageLayout lang={lang} entry={entry} canonicalPath={`/${lang}/about/`} />
+

@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Lang } from '../i18n/ui';
+import BaseLayout from './BaseLayout.astro';
+
+type Props = {
+  lang: Lang;
+  entry: CollectionEntry<'pages'>;
+  canonicalPath: string;
+};
+
+const { lang, entry, canonicalPath } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${entry.data.title} · eyecare.parentguidebook.org`}
+  description={entry.data.title}
+  canonicalPath={canonicalPath}
+>
+  <div class="prose mx-auto">
+    <Content />
+  </div>
+</BaseLayout>
+

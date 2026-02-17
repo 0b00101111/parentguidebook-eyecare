@@ -1,0 +1,13 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+---
+
+<section class="disclaimer-box">
+  <h2 class="disclaimer-box__title">{t('disclaimer.title')}</h2>
+  <p class="disclaimer-box__text">{t('disclaimer.text')}</p>
+</section>
+

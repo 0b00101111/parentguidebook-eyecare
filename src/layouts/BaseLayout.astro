@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+import ThemeInitScript from '../components/ThemeInitScript.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import type { Lang } from '../i18n/ui';
+import { otherLang } from '../i18n/utils';
+
+type Props = {
+  lang: Lang;
+  title: string;
+  description?: string;
+  canonicalPath?: string;
+  ogType?: 'website' | 'article';
+};
+
+const { lang, title, description, canonicalPath, ogType = 'website' } = Astro.props;
+const htmlLang = lang === 'zh' ? 'zh-Hans' : 'en';
+const canonicalUrl = canonicalPath
+  ? new URL(canonicalPath, Astro.site ?? Astro.url.origin).toString()
+  : undefined;
+
+const altLang = otherLang(lang);
+const altPath =
+  canonicalPath && canonicalPath.startsWith('/en/')
+    ? canonicalPath.replace(/^\/en\//, '/zh/')
+    : canonicalPath && canonicalPath.startsWith('/zh/')
+      ? canonicalPath.replace(/^\/zh\//, '/en/')
+      : undefined;
+const altUrl = altPath
+  ? new URL(altPath, Astro.site ?? Astro.url.origin).toString()
+  : undefined;
+---
+
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{title}</title>
+    {description ? <meta name="description" content={description} /> : null}
+    {canonicalUrl ? <link rel="canonical" href={canonicalUrl} /> : null}
+
+    {canonicalUrl ? <meta property="og:url" content={canonicalUrl} /> : null}
+    <meta property="og:site_name" content="eyecare.parentguidebook.org" />
+    <meta property="og:title" content={title} />
+    {description ? <meta property="og:description" content={description} /> : null}
+    <meta property="og:type" content={ogType} />
+
+    {canonicalUrl ? (
+      <>
+        <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site ?? Astro.url.origin).toString()} />
+        <link rel="alternate" hreflang="en" href={lang === 'en' ? canonicalUrl : (altUrl ?? canonicalUrl)} />
+        <link rel="alternate" hreflang="zh-Hans" href={lang === 'zh' ? canonicalUrl : (altUrl ?? canonicalUrl)} />
+      </>
+    ) : null}
+
+    <ThemeInitScript />
+  </head>
+  <body class={`min-h-screen ${htmlLang === 'zh-Hans' ? 'lang-zh' : ''}`}>
+    <div class="min-h-screen">
+      <Header lang={lang} />
+      <main class="px-6 sm:px-8">
+        <div class="mx-auto max-w-[900px] py-10">
+          <slot />
+        </div>
+      </main>
+      <Footer lang={lang} />
+    </div>
+  </body>
+</html>
+

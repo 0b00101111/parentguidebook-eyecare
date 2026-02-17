@@ -1,0 +1,67 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Lang } from '../i18n/ui';
+import { useTranslations, otherLang } from '../i18n/utils';
+import BaseLayout from './BaseLayout.astro';
+import TLDRCard from '../components/TLDRCard.astro';
+import MedicalDisclaimer from '../components/MedicalDisclaimer.astro';
+
+type Props = {
+  lang: Lang;
+  entry: CollectionEntry<'articles'>;
+  canonicalPath: string;
+};
+
+const { lang, entry, canonicalPath } = Astro.props;
+const t = useTranslations(lang);
+const { Content } = await entry.render();
+
+const altLang = otherLang(lang);
+const altPath = canonicalPath.replace(/^\/(en|zh)\//, `/${altLang}/`);
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${entry.data.title} · eyecare.parentguidebook.org`}
+  description={entry.data.title}
+  canonicalPath={canonicalPath}
+  ogType="article"
+>
+  <article class="prose article-page">
+    <p class="article-page__meta">
+      {t('article.lastUpdated')} {entry.data.last_updated}
+    </p>
+    <h1 class="article-page__title">{entry.data.title}</h1>
+
+    <TLDRCard lang={lang} urgency={entry.data.urgency} />
+
+    <Content />
+
+    <div class="article-page__lang">
+      <a href={altPath} onclick={`try{localStorage.setItem('lang','${altLang}')}catch{}`}>
+        {lang === 'en' ? t('article.readInChinese') : t('article.readInEnglish')}
+      </a>
+    </div>
+
+    <MedicalDisclaimer lang={lang} />
+
+    <div class="article-page__back">
+      <a href={`/${lang}/`}>{t('article.backToHome')}</a>
+    </div>
+
+    <script>
+      // Number Sources list items so citation links (#source-1, etc.) scroll to the right entry
+      (function () {
+        const sourcesHeading = document.getElementById('sources');
+        if (!sourcesHeading) return;
+        const next = sourcesHeading.nextElementSibling;
+        if (!next || next.tagName !== 'OL') return;
+        let n = 1;
+        for (const li of next.querySelectorAll(':scope > li')) {
+          li.id = 'source-' + n++;
+        }
+      })();
+    </script>
+  </article>
+</BaseLayout>
+

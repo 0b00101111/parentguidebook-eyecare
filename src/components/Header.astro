@@ -1,0 +1,22 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+import DarkModeToggle from './DarkModeToggle.astro';
+import LanguageToggle from './LanguageToggle.astro';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const wordmark = lang === 'zh' ? '家长指南 · 保护眼睛' : 'Parent Guidebook · Eyecare';
+---
+
+<header class="site-header px-6 sm:px-8">
+  <div class="site-header__inner">
+    <a class="site-header__logo" href={`/${lang}/`} aria-label="Home">{wordmark}</a>
+    <nav class="site-nav">
+      <a href={`/${lang}/about/`}>{t('nav.about')}</a>
+      <a href={`/${lang}/sources/`}>{t('nav.sources')}</a>
+      <LanguageToggle lang={lang} />
+      <DarkModeToggle lang={lang} />
+    </nav>
+  </div>
+</header>

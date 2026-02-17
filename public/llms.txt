@@ -1,0 +1,7 @@
+# eyecare.parentguidebook.org
+# A free, bilingual (English/Chinese) guide to children's eye health for parents
+# Evidence-based content from published medical research and international guidelines
+# Topics: leukocoria, strabismus, amblyopia, myopia, vision screening schedules, eye exam guides
+# Available in: English (/en/) and Chinese (/zh/)
+# Not medical advice — educational resource for parents
+

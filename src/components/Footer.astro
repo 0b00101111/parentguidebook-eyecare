@@ -1,0 +1,15 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+---
+
+<footer class="site-footer px-6 sm:px-8">
+  <div class="site-footer__inner">
+    <p>{t('footer.disclaimer')}</p>
+    <p class="site-footer__meta">{t('footer.noAds')} · {t('footer.project')}</p>
+    <p class="site-footer__meta">{t('footer.contactLabel')}: <a href="mailto:eyecare@parentguidebook.org">eyecare@parentguidebook.org</a></p>
+  </div>
+</footer>

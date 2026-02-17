@@ -1,0 +1,42 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+---
+
+<button
+  type="button"
+  class="nav-btn"
+  data-theme-toggle
+  aria-label={t('theme.dark')}
+>
+  <span data-theme-label>{t('theme.dark')}</span>
+</button>
+
+<script is:inline>
+  (() => {
+    const btn = document.querySelector('[data-theme-toggle]');
+    if (!btn) return;
+    const label = btn.querySelector('[data-theme-label]');
+
+    const apply = (theme) => {
+      document.documentElement.classList.add('theme-transition');
+      document.documentElement.dataset.theme = theme;
+      try { localStorage.setItem('theme', theme); } catch {}
+      window.setTimeout(() => {
+        document.documentElement.classList.remove('theme-transition');
+      }, 220);
+    };
+
+    const current = () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+
+    btn.addEventListener('click', () => {
+      const next = current() === 'dark' ? 'light' : 'dark';
+      apply(next);
+      // Label stays simple; we keep translations static in markup for now.
+    });
+  })();
+</script>
+

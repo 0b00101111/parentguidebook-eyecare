@@ -1,0 +1,58 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+type Urgency = 'critical' | 'important' | 'good-to-know';
+
+const { lang, urgency } = Astro.props as { lang: Lang; urgency: Urgency };
+const t = useTranslations(lang);
+
+const dotColor =
+  urgency === 'critical'
+    ? 'var(--color-urgency-critical)'
+    : urgency === 'important'
+      ? 'var(--color-urgency-important)'
+      : 'var(--color-urgency-routine)';
+
+const bgColor =
+  urgency === 'critical'
+    ? 'var(--color-urgency-critical-bg)'
+    : urgency === 'important'
+      ? 'var(--color-urgency-important-bg)'
+      : 'var(--color-urgency-routine-bg)';
+---
+
+<span
+  class="urgency-badge"
+  style={`--urgency-dot: ${dotColor}; --urgency-bg: ${bgColor}`}
+>
+  <span class="urgency-badge__dot" aria-hidden="true" />
+  <span class="urgency-badge__text">{t(`urgency.${urgency}` as any)}</span>
+</span>
+
+<style>
+  .urgency-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background: var(--urgency-bg);
+    border-radius: 9999px;
+    border: 1px solid var(--color-border);
+  }
+
+  .urgency-badge__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--urgency-dot);
+    flex-shrink: 0;
+  }
+
+  .urgency-badge__text {
+    letter-spacing: 0.01em;
+  }
+</style>

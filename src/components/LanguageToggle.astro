@@ -1,0 +1,26 @@
+---
+import type { Lang } from '../i18n/ui';
+import { otherLang, useTranslations } from '../i18n/utils';
+
+const { lang } = Astro.props as { lang: Lang };
+const nextLang = otherLang(lang);
+const t = useTranslations(lang);
+
+// Swap /en/... <-> /zh/... (keep rest of path).
+const currentPath = Astro.url.pathname;
+const nextPath = currentPath.startsWith('/en/')
+  ? currentPath.replace(/^\/en\//, '/zh/')
+  : currentPath.startsWith('/zh/')
+    ? currentPath.replace(/^\/zh\//, '/en/')
+    : `/${nextLang}/`;
+---
+
+<a
+  class="nav-btn"
+  href={nextPath}
+  aria-label={t('lang.switchLabel')}
+  onclick={`try{localStorage.setItem('lang','${nextLang}')}catch{}`}
+>
+  {t('lang.switch')}
+</a>
+

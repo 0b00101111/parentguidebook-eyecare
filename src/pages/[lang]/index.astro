@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+import type { Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getArticlePath, getBaseSlugFromId } from '../../utils/routes';
+
+export async function getStaticPaths() {
+  return [{ params: { lang: 'en' } }, { params: { lang: 'zh' } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = useTranslations(lang);
+
+const all = await getCollection('articles');
+const articles = all
+  .filter((e) => (lang === 'en' ? e.data.lang === 'en' : e.data.lang === 'zh-Hans'))
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const byCategory = {
+  'emergency-signs': articles.filter((a) => a.data.category === 'emergency-signs'),
+  guides: articles.filter((a) => a.data.category === 'guides'),
+  'eye-exams': articles.filter((a) => a.data.category === 'eye-exams'),
+} as const;
+
+const canonicalPath = `/${lang}/`;
+
+const findBySlug = (slug: string) => articles.find((a) => getBaseSlugFromId(a.id) === slug);
+---
+
+<BaseLayout
+  lang={lang}
+  title="eyecare.parentguidebook.org"
+  description={t('landing.hero.subheadline')}
+  canonicalPath={canonicalPath}
+>
+  <section class="landing-hero">
+    <h1 class="landing-hero__title">{t('landing.hero.headline')}</h1>
+    <p class="landing-hero__sub">{t('landing.hero.subheadline')}</p>
+    <div class="landing-hero__actions">
+      <a class="btn-primary" href={getArticlePath(lang, findBySlug('signs-of-vision-problems') ?? articles[0])}>
+        {t('landing.hero.cta.start')}
+      </a>
+      <a class="btn-secondary" href={getArticlePath(lang, findBySlug('eye-exam-schedule') ?? articles[0])}>
+        {t('landing.hero.cta.schedule')}
+      </a>
+    </div>
+  </section>
+
+  <section class="landing-section">
+    <h2 class="landing-section__title">{t('landing.featured.title')}</h2>
+    <div class="landing-grid">
+      {Object.entries(byCategory).map(([category, list]) => (
+        <div class="landing-category">
+          <h3 class="landing-category__title">{t(`category.${category}` as any)}</h3>
+          <div class="landing-cards">
+            {list.map((a) => (
+              <a class="landing-card" href={getArticlePath(lang, a)}>
+                <div class="landing-card__category">{t(`category.${a.data.category}` as any)}</div>
+                <div class="landing-card__title">{a.data.title}</div>
+                <div class="landing-card__meta">{t(`urgency.${a.data.urgency}` as any)}</div>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+

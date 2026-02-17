@@ -1,0 +1,93 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+import UrgencyBadge from './UrgencyBadge.astro';
+
+type Urgency = 'critical' | 'important' | 'good-to-know';
+
+const { lang, urgency } = Astro.props as { lang: Lang; urgency: Urgency };
+const t = useTranslations(lang);
+
+const stripe =
+  urgency === 'critical'
+    ? 'var(--color-urgency-critical)'
+    : urgency === 'important'
+      ? 'var(--color-urgency-important)'
+      : 'var(--color-urgency-routine)';
+---
+
+<section
+  class="tldr-card"
+  style={`--tldr-stripe: ${stripe}`}
+>
+  <div class="tldr-card__header">
+    <span class="tldr-card__label">{t('article.tldr')}</span>
+    <UrgencyBadge lang={lang} urgency={urgency} />
+  </div>
+  <div class="tldr-card__body">
+    <p class="tldr-card__lead">
+      {urgency === 'critical'
+        ? lang === 'zh'
+          ? '如果你担心孩子的眼睛外观或视力，请在几天内尽快就医。'
+          : "If you're worried about your child's eye appearance or vision, get them checked within days."
+        : urgency === 'important'
+          ? lang === 'zh'
+            ? '建议尽快与儿科或眼科沟通，并按文章建议安排检查。'
+            : 'Mention this to your doctor soon and follow the recommended checkup steps in this guide.'
+          : lang === 'zh'
+            ? '把它作为健康习惯的一部分，按常规时间表做好筛查与复查。'
+            : 'Treat this as good-to-know guidance and keep to a regular screening schedule.'}
+    </p>
+    <p class="tldr-card__sub">
+      {lang === 'zh'
+        ? '文末有“关键要点”和参考来源，方便快速回顾。'
+        : 'Key takeaways and sources are at the end of this article.'}
+    </p>
+  </div>
+</section>
+
+<style>
+  .tldr-card {
+    background: var(--color-bg-secondary);
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--tldr-stripe);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .tldr-card__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .tldr-card__label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .tldr-card__body {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+
+  .tldr-card__lead {
+    margin: 0;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  .tldr-card__sub {
+    margin: 0.5em 0 0;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+</style>

@@ -1,0 +1,31 @@
+---
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>eyecare.parentguidebook.org</title>
+    <script>
+      (() => {
+        try {
+          const stored = localStorage.getItem('lang');
+          if (stored === 'en' || stored === 'zh') {
+            window.location.replace(`/${stored}/`);
+            return;
+          }
+        } catch {}
+        const nav = (navigator.language || '').toLowerCase();
+        const lang = nav.startsWith('zh') ? 'zh' : 'en';
+        window.location.replace(`/${lang}/`);
+      })();
+    </script>
+  </head>
+  <body style="font-family: system-ui, sans-serif; padding: 24px">
+    <h1 style="margin-top: 0">Choose your language / 选择语言</h1>
+    <p><a href="/en/" onclick="try{localStorage.setItem('lang','en')}catch{}">English</a></p>
+    <p><a href="/zh/" onclick="try{localStorage.setItem('lang','zh')}catch{}">中文</a></p>
+  </body>
+</html>
+
