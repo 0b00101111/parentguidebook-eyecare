@@ -11,6 +11,24 @@ npm run dev
 
 Then open the URL shown in the terminal.
 
+## Push to GitHub
+
+The project is already a git repo with an initial commit. To put it on GitHub:
+
+1. **Create a new repository on GitHub**
+   - Go to [github.com/new](https://github.com/new).
+   - Repository name: e.g. `parentguidebook-eyecare` (or any name you prefer).
+   - Choose **Private** or **Public**. Do **not** add a README, .gitignore, or license (this repo already has them).
+   - Click **Create repository**.
+
+2. **Add the remote and push** (replace `YOUR_USERNAME` and `REPO_NAME` with your GitHub username and repo name):
+   ```bash
+   git remote add origin https://github.com/YOUR_USERNAME/REPO_NAME.git
+   git push -u origin main
+   ```
+
+3. **Connect to Cloudflare Pages** (see Deployment → Option B below) so every push deploys automatically.
+
 ## Build
 
 ```bash
