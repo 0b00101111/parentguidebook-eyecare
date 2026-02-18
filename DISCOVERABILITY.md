@@ -3,7 +3,7 @@
 ## What’s already in place
 
 - **robots.txt** — Allows all crawlers and points to the sitemap.
-- **sitemap.xml** — Lists all pages with full URLs for indexing.
+- **sitemap.xml** — Generated at build time by `src/pages/sitemap.xml.ts`; lists all pages with full URLs for indexing.
 - **llms.txt** — Describes the site and links to key pages for LLM crawlers (at `/llms.txt`).
 - **Meta & SEO** — Each page has `<title>`, `<meta name="description">`, `<link rel="canonical">`, Open Graph tags, and `hreflang` for EN/ZH.
 
