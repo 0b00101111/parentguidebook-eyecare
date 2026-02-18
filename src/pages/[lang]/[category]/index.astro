@@ -1,0 +1,52 @@
+---
+import type { Lang } from '../../../i18n/ui';
+import { useTranslations } from '../../../i18n/utils';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { CATEGORIES, DOMAINS_BY_CATEGORY } from '../../../config/domains';
+import { getCategoryPath, getDomainPath } from '../../../utils/routes';
+
+export async function getStaticPaths() {
+  const paths: { params: { lang: string; category: string } }[] = [];
+  for (const lang of ['en', 'zh']) {
+    for (const c of CATEGORIES) {
+      paths.push({ params: { lang, category: c.slug } });
+    }
+  }
+  return paths;
+}
+
+const { lang, category } = Astro.params as { lang: Lang; category: string };
+const t = useTranslations(lang);
+const canonicalPath = getCategoryPath(lang, category);
+const cat = CATEGORIES.find((c) => c.slug === category);
+const categoryLabel = cat ? t(cat.labelKey as any) : category;
+const domains = DOMAINS_BY_CATEGORY[category as keyof typeof DOMAINS_BY_CATEGORY] ?? [];
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${categoryLabel} · Parent Guidebook`}
+  description={categoryLabel}
+  canonicalPath={canonicalPath}
+>
+  <section class="landing-hero">
+    <h1 class="landing-hero__title">{categoryLabel}</h1>
+  </section>
+
+  <section class="landing-section">
+    <div class="landing-grid">
+      {domains.map((d) => (
+        d.ready ? (
+          <a class="landing-card" href={getDomainPath(lang, category, d.slug)}>
+            <div class="landing-card__title">{t(d.labelKey as any)}</div>
+          </a>
+        ) : (
+          <div class="landing-card landing-card--disabled">
+            <div class="landing-card__title">{t(d.labelKey as any)}</div>
+            <div class="landing-card__meta">{t('domain.comingSoon')}</div>
+          </div>
+        )
+      ))}
+    </div>
+  </section>
+</BaseLayout>

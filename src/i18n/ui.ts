@@ -30,16 +30,45 @@ export const ui = {
     'article.readInEnglish': 'Read in English',
     'article.tldr': 'Quick Summary (30 seconds)',
     'article.backToHome': '← Back to home',
+    'article.backToDomain': '← Back to Eyes',
 
     // Urgency badges
     'urgency.critical': 'See a doctor within days',
     'urgency.important': 'Mention to your doctor soon',
     'urgency.good-to-know': 'Follow regular schedule',
 
-    // Categories
+    // Categories (article subcategories within a domain)
     'category.emergency-signs': 'Emergency Signs',
     'category.guides': 'Guides by Age',
     'category.eye-exams': 'Eye Exams',
+
+    // Category groups (four pillars)
+    'categoryGroup.body': 'For the Body',
+    'categoryGroup.mind': 'For the Mind',
+    'categoryGroup.dailyLife': 'For Daily Life',
+    'categoryGroup.heartSoul': 'For the Heart & Soul',
+
+    // Domains
+    'domain.eyes': 'Eyes',
+    'domain.breathing': 'Breathing',
+    'domain.bonesMovement': 'Bones & Movement',
+    'domain.teeth': 'Teeth',
+    'domain.nutrition': 'Nutrition',
+    'domain.attentionDigital': 'Attention & Digital World',
+    'domain.learningCognitive': 'Learning & Cognitive',
+    'domain.socialEmotional': 'Social & Emotional',
+    'domain.schoolLife': 'School Life',
+    'domain.physicalActivity': 'Physical Activity',
+    'domain.outdoorLife': 'Outdoor Life',
+    'domain.homeEnvironment': 'Home Environment',
+    'domain.identityBelonging': 'Identity & Belonging',
+    'domain.genderConfidence': 'Gender, Confidence & Equality',
+    'domain.characterStrength': 'Character & Inner Strength',
+    'domain.adaptability': 'Adaptability & Transitions',
+    'domain.bigQuestions': 'Big Questions',
+    'domain.exploreFuture': 'Explore & Future Readiness',
+    'domain.howWorldWorks': 'How the World Works',
+    'domain.comingSoon': 'Coming soon',
 
     // Landing page
     'landing.hero.headline': "Your child's eyes deserve your attention.",
@@ -90,6 +119,7 @@ export const ui = {
     'article.readInEnglish': 'Read in English',
     'article.tldr': '快速摘要（30秒）',
     'article.backToHome': '← 返回首页',
+    'article.backToDomain': '← 返回眼睛',
 
     // Urgency badges
     'urgency.critical': '请在几天内就医',
@@ -100,6 +130,34 @@ export const ui = {
     'category.emergency-signs': '紧急信号',
     'category.guides': '按年龄指南',
     'category.eye-exams': '眼科检查',
+
+    // Category groups
+    'categoryGroup.body': '身体',
+    'categoryGroup.mind': '心智',
+    'categoryGroup.dailyLife': '日常生活',
+    'categoryGroup.heartSoul': '心灵与品格',
+
+    // Domains
+    'domain.eyes': '眼睛',
+    'domain.breathing': '呼吸',
+    'domain.bonesMovement': '骨骼与运动',
+    'domain.teeth': '牙齿',
+    'domain.nutrition': '营养',
+    'domain.attentionDigital': '注意力与网络',
+    'domain.learningCognitive': '学习与认知',
+    'domain.socialEmotional': '社交与情绪',
+    'domain.schoolLife': '校园生活',
+    'domain.physicalActivity': '身体活动',
+    'domain.outdoorLife': '户外生活',
+    'domain.homeEnvironment': '家庭环境',
+    'domain.identityBelonging': '身份与归属',
+    'domain.genderConfidence': '性别、自信与平等',
+    'domain.characterStrength': '品格与内心力量',
+    'domain.adaptability': '适应与过渡',
+    'domain.bigQuestions': '大问题',
+    'domain.exploreFuture': '探索与未来',
+    'domain.howWorldWorks': '世界如何运转',
+    'domain.comingSoon': '敬请期待',
 
     // Landing page
     'landing.hero.headline': '孩子的眼睛，值得你多一份关注。',

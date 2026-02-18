@@ -10,9 +10,10 @@ type Props = {
   lang: Lang;
   entry: CollectionEntry<'articles'>;
   canonicalPath: string;
+  domainHomePath?: string;
 };
 
-const { lang, entry, canonicalPath } = Astro.props;
+const { lang, entry, canonicalPath, domainHomePath } = Astro.props;
 const t = useTranslations(lang);
 const { Content } = await entry.render();
 
@@ -22,7 +23,7 @@ const altPath = canonicalPath.replace(/^\/(en|zh)\//, `/${altLang}/`);
 
 <BaseLayout
   lang={lang}
-  title={`${entry.data.title} · eyecare.parentguidebook.org`}
+  title={`${entry.data.title} · Parent Guidebook`}
   description={entry.data.title}
   canonicalPath={canonicalPath}
   ogType="article"
@@ -46,7 +47,7 @@ const altPath = canonicalPath.replace(/^\/(en|zh)\//, `/${altLang}/`);
     <MedicalDisclaimer lang={lang} />
 
     <div class="article-page__back">
-      <a href={`/${lang}/`}>{t('article.backToHome')}</a>
+      <a href={domainHomePath ?? `/${lang}/`}>{domainHomePath ? t('article.backToDomain') : t('article.backToHome')}</a>
     </div>
 
     <script>

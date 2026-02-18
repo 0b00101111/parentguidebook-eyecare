@@ -1,5 +1,6 @@
 import type { CollectionEntry } from 'astro:content';
 import type { Lang } from '../i18n/ui';
+import { EYECARE_CATEGORY, EYECARE_DOMAIN } from '../config/domains';
 
 export const ARTICLE_ROUTE_SEGMENT_BY_SLUG: Record<string, string> = {
   'white-pupil-leukocoria': 'white-pupil',
@@ -23,9 +24,19 @@ export function getArticleRouteSegment(entry: CollectionEntry<'articles'>): stri
   return ARTICLE_ROUTE_SEGMENT_BY_SLUG[slug] ?? slug;
 }
 
+/** Path to an article: /{lang}/{category}/{domain}/{articleSlug}/. All current articles are body/eyes. */
 export function getArticlePath(lang: Lang, entry: CollectionEntry<'articles'>): string {
-  const category = entry.data.category;
   const route = getArticleRouteSegment(entry);
-  return `/${lang}/${category}/${route}/`;
+  return `/${lang}/${EYECARE_CATEGORY}/${EYECARE_DOMAIN}/${route}/`;
+}
+
+/** Path to a domain landing: /{lang}/{category}/{domain}/ */
+export function getDomainPath(lang: Lang, category: string, domain: string): string {
+  return `/${lang}/${category}/${domain}/`;
+}
+
+/** Path to category index: /{lang}/{category}/ */
+export function getCategoryPath(lang: Lang, category: string): string {
+  return `/${lang}/${category}/`;
 }
 

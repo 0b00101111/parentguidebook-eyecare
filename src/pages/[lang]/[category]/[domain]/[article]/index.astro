@@ -1,0 +1,35 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import type { Lang } from '../../../../../i18n/ui';
+import ArticleLayout from '../../../../../layouts/ArticleLayout.astro';
+import { EYECARE_CATEGORY, EYECARE_DOMAIN } from '../../../../../config/domains';
+import { getArticleRouteSegment } from '../../../../../utils/routes';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((entry) => ({
+    params: {
+      lang: entry.data.lang === 'en' ? 'en' : 'zh',
+      category: EYECARE_CATEGORY,
+      domain: EYECARE_DOMAIN,
+      article: getArticleRouteSegment(entry),
+    },
+    props: { entryId: entry.id.replace(/\.mdx?$/i, '') },
+  }));
+}
+
+const { lang, category, domain, article } = Astro.params as {
+  lang: Lang;
+  category: string;
+  domain: string;
+  article: string;
+};
+
+const { entryId } = Astro.props as { entryId: string };
+const entry = await getEntry('articles', entryId);
+if (!entry) throw new Error(`Missing article entry: ${entryId}`);
+
+const canonicalPath = `/${lang}/${category}/${domain}/${article}/`;
+---
+
+<ArticleLayout lang={lang} entry={entry} canonicalPath={canonicalPath} domainHomePath={`/${lang}/${category}/${domain}/`} />

@@ -6,13 +6,18 @@ import LanguageToggle from './LanguageToggle.astro';
 
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
-const wordmark = lang === 'zh' ? '家长指南 · 保护眼睛' : 'Parent Guidebook · Eyecare';
+const wordmark = lang === 'zh' ? '家长指南' : 'Parent Guidebook';
+// Logos in public/img/: logo-english.svg (EN), logo-chinese.svg (ZH)
+const logoSrc = lang === 'zh' ? '/img/logo-chinese.svg' : '/img/logo-english.svg';
 ---
 
 <header class="site-header px-6 sm:px-8">
   <div class="site-header__inner">
-    <a class="site-header__logo" href={`/${lang}/`} aria-label="Home">{wordmark}</a>
+    <a class="site-header__logo" href={`/${lang}/`} aria-label="Home">
+      <img class="site-header__logo-img" src={logoSrc} alt={wordmark} width="240" height="60" />
+    </a>
     <nav class="site-nav">
+      <a href={`/${lang}/body/eyes/`}>{lang === 'zh' ? '眼睛' : 'Eyes'}</a>
       <a href={`/${lang}/about/`}>{t('nav.about')}</a>
       <a href={`/${lang}/sources/`}>{t('nav.sources')}</a>
       <LanguageToggle lang={lang} />

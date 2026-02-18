@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" width="600" height="200">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- Parent Guidebook — blue -->
+  <text x="300" y="100" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="700" font-size="52" fill="#5B9BD5" letter-spacing="0.5">Parent Guidebook</text>
+  
+  <!-- Sage green accent line -->
+  <rect x="255" y="120" width="90" height="2.5" fill="#7BAE7F" rx="1"/>
+  
+  <!-- Tagline — grey -->
+  <text x="300" y="155" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="500" font-size="14" fill="#8B95A5" letter-spacing="4">EVIDENCE-BASED · FREE · BILINGUAL</text>
+
+</svg>

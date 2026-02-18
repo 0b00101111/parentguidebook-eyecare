@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content';
-import { getArticlePath } from '../utils/routes';
+import { getArticlePath, getCategoryPath, getDomainPath } from '../utils/routes';
+import { CATEGORIES, EYECARE_CATEGORY, EYECARE_DOMAIN } from '../config/domains';
 
 const SITE = 'https://eyecare.parentguidebook.org';
 
@@ -18,6 +19,12 @@ export async function GET() {
     `${SITE}/en/sources/`,
     `${SITE}/zh/sources/`,
   ];
+  for (const lang of ['en', 'zh']) {
+    for (const c of CATEGORIES) {
+      urls.push(`${SITE}${getCategoryPath(lang, c.slug)}`);
+    }
+    urls.push(`${SITE}${getDomainPath(lang, EYECARE_CATEGORY, EYECARE_DOMAIN)}`);
+  }
   for (const entry of articles) {
     const path = getArticlePath(entry.data.lang === 'en' ? 'en' : 'zh', entry);
     urls.push(`${SITE}${path}`);
