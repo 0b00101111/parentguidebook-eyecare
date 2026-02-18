@@ -114,7 +114,7 @@ We do not reproduce copyrighted text. All articles on this site are written in o
 
 We encourage you to read the original sources whenever possible. Many are freely available online through the links provided above.
 
-If you believe we have misrepresented any source or made a factual error, please contact us at **eyecare@parentguidebook.org** and we will review and correct it promptly.
+If you believe we have misrepresented any source or made a factual error, please contact us at **hi@parentguidebook.org** and we will review and correct it promptly.
 
 ---
 

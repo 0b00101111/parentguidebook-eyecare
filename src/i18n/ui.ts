@@ -69,6 +69,7 @@ export const ui = {
     'domain.exploreFuture': 'Explore & Future Readiness',
     'domain.howWorldWorks': 'How the World Works',
     'domain.comingSoon': 'Coming soon',
+    'hub.underConstruction': 'Under construction',
 
     // Landing page
     'landing.hero.headline': "Your child's eyes deserve your attention.",
@@ -158,6 +159,7 @@ export const ui = {
     'domain.exploreFuture': '探索与未来',
     'domain.howWorldWorks': '世界如何运转',
     'domain.comingSoon': '敬请期待',
+    'hub.underConstruction': '建设中',
 
     // Landing page
     'landing.hero.headline': '孩子的眼睛，值得你多一份关注。',
