@@ -69,10 +69,10 @@ npm run preview
 This repo includes **`wrangler.jsonc`** so the built `dist` folder is deployed as static assets. Use this if your project is a **Worker** with a separate deploy/version command.
 
 1. **Build command**: `npm run build`
-2. **Deploy command** (or **Version command**, whichever runs after the build): set to **one** of:
-   - `npx wrangler deploy` — uses `wrangler.jsonc` and uploads `./dist`
-   - `npx wrangler versions upload` — same; Wrangler reads the config and uploads `./dist`
-3. Ensure the project **API token** has **Account → Cloudflare Pages** (or **Workers**) **Edit** and **User → User Details → Read**.
+2. **Deploy command** (or **Version command**, whichever runs after the build): set to **`npm run deploy-worker`**.
+   - This runs `wrangler versions upload` with **3 retries** and a 15s delay between attempts. Cloudflare’s API sometimes returns 504 Gateway Timeout on the asset upload; retrying usually succeeds.
+   - If you prefer no retries, you can set the deploy command to `npx wrangler versions upload` instead.
+3. Ensure the project **API token** has **Account → Workers** **Edit** and **User → User Details → Read**.
 4. Redeploy. The Worker will serve the static site from the `dist` directory.
 
 ### Reference

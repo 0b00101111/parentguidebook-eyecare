@@ -7,7 +7,8 @@
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
     "deploy": "npm run build && wrangler pages deploy dist --project-name=eyecare-parentguidebook",
-    "astro": "astro"
+    "astro": "astro",
+    "deploy-worker": "node scripts/deploy-worker.mjs"
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.1.0",
